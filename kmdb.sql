@@ -151,16 +151,17 @@ INSERT INTO studios (id, name) VALUES
 
 INSERT INTO movies (id, title, year_released, mpaa_rating, studio_id) VALUES
   (1, 'Batman Begins', 2005, 'PG-13', 1),
-  (2, 'The Dark Knight', 2008, 'PG-13', 1)
+  (2, 'The Dark Knight', 2008, 'PG-13', 1),
   (3, 'The Dark Knight Rises', 2012, 'PG-13', 1)
   ;
 --agents
 INSERT INTO agents (id, name) VALUES
-(1, 'KMDB Talent Agency') ;
+(1, 'KMDB Talent Agency') 
+;
 
 --Actors
 INSERT INTO actors (id, name, agent_id) VALUES
-  (1, 'Christian Bale'          NULL),
+  (1, 'Christian Bale',         NULL),
   (2,  'Michael Caine',         NULL),
   (3,  'Liam Neeson',           NULL),
   (4,  'Katie Holmes',          NULL),
@@ -212,7 +213,7 @@ WHERE name = 'Christinan Bale'
 
 -- ***TODO!***
 -- The SQL statement for the movies output goes here.
-SELECT
+ SELECT
   m.title,
   m.year_released,
   m.mpaa_rating, 
@@ -286,7 +287,7 @@ ORDER BY m.year_released, r.billing_order
 SELECT
   a.name
 FROM actors a 
-LEFT JOIN agents ag
+JOIN agents ag
 on a.agent_id = ag.id
 where ag.id = 1
 order by a.name;
