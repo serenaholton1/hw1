@@ -202,7 +202,7 @@ INSERT INTO roles (movie_id, actor_id, character_name, billing_order) VALUES
 
 UPDATE actors
 SET agent_id = 1
-WHERE name = 'Christinan Bale'
+WHERE name = 'Christian Bale'
 ;
 
 
