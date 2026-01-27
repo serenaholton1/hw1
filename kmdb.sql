@@ -96,12 +96,114 @@
 -- Drop existing tables, so you'll start fresh each time this script is run.
 -- TODO!
 
+DROP TABLE IF EXISTS roles;
+DROP TABLE IF EXISTS actors;
+DROP TABLE IF EXISTS agents;
+DROP TABLE IF EXISTS movies;
+DROP TABLE IF EXISTS studios;
+
 -- Create new tables, according to your domain model
 -- TODO!
+
+CREATE TABLE studios (
+  id   INTEGER PRIMARY KEY AUTOINCREMENT,
+  name TEXT
+);
+
+CREATE TABLE movies (
+  id            INTEGER PRIMARY KEY AUTOINCREMENT,
+  title         TEXT,
+  year_released INTEGER,
+  mpaa_rating   TEXT,
+  studio_id     INTEGER --foreign key
+);
+
+CREATE TABLE agents (
+  id   INTEGER PRIMARY KEY AUTOINCREMENT,
+  name TEXT
+);
+
+CREATE TABLE actors (
+  id      INTEGER PRIMARY KEY AUTOINCREMENT,
+  name     TEXT NOT NULL,
+  agent_id INTEGER -- foreign key
+);
+
+-- Join table between movies and actors (NOT named cast)
+CREATE TABLE roles (
+  id             INTEGER PRIMARY KEY AUTOINCREMENT,
+  movie_id       INTEGER, -- foreign key
+  actor_id       INTEGER, -- foreign key
+  character_name TEXT,
+  billing_order  INTEGER
+);
+
 
 -- Insert data into your database that reflects the sample data shown above
 -- Use hard-coded foreign key IDs when necessary
 -- TODO!
+
+--studios
+INSERT INTO studios (id, name) VALUES
+    (1, 'Warner Bros.')
+    ;
+--movies
+
+INSERT INTO movies (id, title, year_released, mpaa_rating, studio_id) VALUES
+  (1, 'Batman Begins', 2005, 'PG-13', 1),
+  (2, 'The Dark Knight', 2008, 'PG-13', 1)
+  (3, 'The Dark Knight Rises', 2012, 'PG-13', 1)
+  ;
+--agents
+INSERT INTO agents (id, name) VALUES
+(1, 'KMDB Talent Agency') ;
+
+--Actors
+INSERT INTO actors (id, name, agent_id) VALUES
+  (1, 'Christian Bale'          NULL),
+  (2,  'Michael Caine',         NULL),
+  (3,  'Liam Neeson',           NULL),
+  (4,  'Katie Holmes',          NULL),
+  (5,  'Gary Oldman',           NULL),
+  (6,  'Heath Ledger',          NULL),
+  (7,  'Aaron Eckhart',         NULL),
+  (8,  'Maggie Gyllenhaal',     NULL),
+  (9,  'Tom Hardy',             NULL),
+  (10, 'Joseph Gordon-Levitt',  NULL),
+  (11, 'Anne Hathaway',         NULL)
+  ;
+
+--ROLES
+
+
+INSERT INTO roles (movie_id, actor_id, character_name, billing_order) VALUES
+--BATMAN BEGINS
+  (1, 1, 'Bruce Wayne',             1),
+  (1, 2, 'Alfred',                  2),
+  (1, 3, 'Ra''s Al Ghul',           3),
+  (1, 4, 'Rachel Dawes',            4),
+  (1, 5, 'Commissioner Gordon',     5),
+--THE DARK NIGHT
+  (2, 1, 'Bruce Wayne',             1),
+  (2, 6, 'Joker',                   2),
+  (2, 7, 'Harvey Dent',             3),
+  (2, 2, 'Alfred',                  4),
+  (2, 8, 'Rachel Dawes',            5),
+
+-- THE DARK NIGHT RISES
+  (3, 1,  'Bruce Wayne',             1),
+  (3, 5,  'Commissioner Gordon',     2),
+  (3, 9,  'Bane',                    3),
+  (3, 10, 'John Blake',              4),
+  (3, 11, 'Selina Kyle',             5)
+  
+  ;
+
+UPDATE actors
+SET agent_id = 1
+WHERE name = 'Christinan Bale'
+;
+
 
 -- Prints a header for the movies output
 .print "Movies"
@@ -110,6 +212,18 @@
 
 -- ***TODO!***
 -- The SQL statement for the movies output goes here.
+SELECT
+  m.title,
+  m.year_released,
+  m.mpaa_rating, 
+  s.name
+
+FROM movies m
+LEFT JOIN STUDIOS s
+ON m.studio_id = s.id
+order by 2 asc
+;
+
 
 -- Example output:
 -- Movies
@@ -126,6 +240,21 @@
 
 -- ***TODO!***
 -- The SQL statement for the cast output goes here.
+
+SELECT
+  m.title,
+  a.name,
+  r.character_name
+
+  FROM roles r
+  LEFT JOIN MOVIES m 
+    on r.movie_id = m.id
+  LEFT JOIN actors a
+    on r.actor_id = a.id
+  
+ORDER BY m.year_released, r.billing_order
+;
+
 
 -- Example output:
 -- Top Cast
@@ -154,6 +283,13 @@
 
 -- ***TODO!***
 -- The SQL statement for the represented actor(s) output goes here.
+SELECT
+  a.name
+FROM actors a 
+LEFT JOIN agents ag
+on a.agent_id = ag.id
+where ag.id = 1
+order by a.name;
 
 -- Example output:
 -- Represented by agent
