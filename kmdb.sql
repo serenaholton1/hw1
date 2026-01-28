@@ -144,34 +144,35 @@ CREATE TABLE roles (
 -- TODO!
 
 --studios
-INSERT INTO studios (id, name) VALUES
-    (1, 'Warner Bros.')
-    ;
---movies
-
-INSERT INTO movies (id, title, year_released, mpaa_rating, studio_id) VALUES
-  (1, 'Batman Begins', 2005, 'PG-13', 1),
-  (2, 'The Dark Knight', 2008, 'PG-13', 1),
-  (3, 'The Dark Knight Rises', 2012, 'PG-13', 1)
+INSERT INTO studios (name) VALUES
+  ('Warner Bros.')
   ;
+
+--movies
+INSERT INTO movies (title, year_released, mpaa_rating, studio_id) VALUES
+  ('Batman Begins', 2005, 'PG-13', 1),
+  ('The Dark Knight', 2008, 'PG-13', 1),
+  ('The Dark Knight Rises', 2012, 'PG-13', 1)
+  ;
+
 --agents
-INSERT INTO agents (id, name) VALUES
-(1, 'KMDB Talent Agency') 
-;
+INSERT INTO agents (name) VALUES
+  ('KMDB Talent Agency')
+  ;
 
 --Actors
-INSERT INTO actors (id, name, agent_id) VALUES
-  (1, 'Christian Bale',         NULL),
-  (2,  'Michael Caine',         NULL),
-  (3,  'Liam Neeson',           NULL),
-  (4,  'Katie Holmes',          NULL),
-  (5,  'Gary Oldman',           NULL),
-  (6,  'Heath Ledger',          NULL),
-  (7,  'Aaron Eckhart',         NULL),
-  (8,  'Maggie Gyllenhaal',     NULL),
-  (9,  'Tom Hardy',             NULL),
-  (10, 'Joseph Gordon-Levitt',  NULL),
-  (11, 'Anne Hathaway',         NULL)
+INSERT INTO actors (name, agent_id) VALUES
+  ('Christian Bale',         NULL),
+  ('Michael Caine',          NULL),
+  ('Liam Neeson',            NULL),
+  ('Katie Holmes',           NULL),
+  ('Gary Oldman',            NULL),
+  ('Heath Ledger',           NULL),
+  ('Aaron Eckhart',          NULL),
+  ('Maggie Gyllenhaal',      NULL),
+  ('Tom Hardy',              NULL),
+  ('Joseph Gordon-Levitt',   NULL),
+  ('Anne Hathaway',          NULL)
   ;
 
 --ROLES
